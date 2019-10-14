@@ -43,6 +43,7 @@ class PokemonCardState extends State<PokemonCard> {
 			height: 180.0,
 			child: new Container(
 				child: new Card(
+          color: Color.fromARGB(255, 50, 50, 50),
 					child: new Column(
 						crossAxisAlignment: CrossAxisAlignment.start,
 						mainAxisAlignment: MainAxisAlignment.end,

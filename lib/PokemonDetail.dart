@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'Pokemon.dart';
-import 'dart:developer';
 
 class PokemonDetail extends StatefulWidget {
   final Pokemon pokemon;
@@ -12,7 +11,10 @@ class PokemonDetail extends StatefulWidget {
 }
 
 class _PokemonDetailPageState extends State<PokemonDetail> {
-  double pokemonAvatarSize = 150;
+  var typeColors = <Color>[
+  ];
+
+  double pokemonAvatarSize = 250;
   String renderUrl;
 
   Pokemon pokemon;
@@ -21,17 +23,17 @@ class _PokemonDetailPageState extends State<PokemonDetail> {
   }
 
   void initState() {
-		super.initState();
-		renderPokemonPic();
-	}
+    super.initState();
+    renderPokemonPic();
+  }
 
-	void renderPokemonPic() async {
-		await pokemon.setImageUrl();
-		if (this.mounted)
-			setState(() {
-				renderUrl = pokemon.getImageUrl();
-		});
-	}
+  void renderPokemonPic() async {
+    await pokemon.setImageUrl();
+    if (this.mounted)
+      setState(() {
+        renderUrl = pokemon.getImageUrl();
+      });
+  }
 
   Widget get pokemonImage {
     var imageAvatar = new Hero(
@@ -49,8 +51,8 @@ class _PokemonDetailPageState extends State<PokemonDetail> {
     var placeholder = new Hero(
       tag: pokemon.name + "_PH",
       child: new Container(
-        width: 160.0,
-        height: 160.0,
+        width: pokemonAvatarSize,
+        height: pokemonAvatarSize,
         child: new Image(
             fit: BoxFit.fill,
             image: AssetImage("assets/poke-ball.png"),
@@ -70,30 +72,78 @@ class _PokemonDetailPageState extends State<PokemonDetail> {
     return crossFade;
   }
 
+  List<Widget> get _types {
+    List<Widget> types = new List();
+    for (var type in widget.pokemon.types) {
+      types.add(new Card(
+        
+        child: new Padding(
+          padding: EdgeInsets.all(5),
+          child:new Text(type.toString().toUpperCase(), style: new TextStyle(color: Colors.white, fontSize: 15),),
+        )
+      ));
+    }
+    return types;
+  }
+
+  Row get _firstRow {
+    return new Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        new FittedBox(
+          fit: BoxFit.contain,
+          child: new Container(
+              alignment: Alignment.center,
+              color: Colors.blue,
+              child: new Text(
+                pokemon.name,
+                style: TextStyle(fontSize: 30, color: Colors.black),
+                textAlign: TextAlign.center,
+              )),
+        ),
+        new Column(
+          children: _types,
+        )
+      ],
+    );
+  }
+
+  Row get _secondRow {}
+
   List<Widget> get pokemonData {
     List<Widget> data = new List();
-    data.add(pokemonImage);
-    data.add(new Text("POKEMON " + widget.pokemon.name));
-    for (var type in widget.pokemon.types) {
-      data.add(new Text("TYPE: " + type.toString()));
-    }
+    data.add(new Container(
+        child: new Card(
+            child: pokemonImage, color: Color.fromARGB(255, 200, 200, 200))));
+
+    data.add(new Container(
+        width: 400,
+        height: 200,
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: new Card(
+          color: Color.fromARGB(255, 200, 200, 200),
+          child: new Column(
+            children: <Widget>[
+              _firstRow,
+            ],
+          ),
+        )));
+    //data.add(new Text(widget.pokemon.name, style: TextStyle(fontSize: 32, color: Colors.black)));
     return data;
   }
 
   Widget get pokemonDetails {
     return new Container(
         padding: new EdgeInsets.symmetric(vertical: 32.0),
-        child: new Column (
+        child: new Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: pokemonData
-          )
-      );
+            children: pokemonData));
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromARGB(255, 220, 220, 220),
         appBar: new AppBar(
             backgroundColor: Colors.red, title: new Text(widget.pokemon.name)),
         body: new ListView(
