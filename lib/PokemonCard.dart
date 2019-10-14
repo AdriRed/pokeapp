@@ -30,10 +30,10 @@ class PokemonCardState extends State<PokemonCard> {
 	}
 
 	void renderPokemonPic() async {
-		await pokemon.getImageUrl();
+		await pokemon.setImageUrl();
 		if (this.mounted)
 			setState(() {
-				renderUrl = pokemon.imageUrl;
+				renderUrl = pokemon.getImageUrl();
 		});
 	}
 
@@ -65,7 +65,7 @@ class PokemonCardState extends State<PokemonCard> {
 
 	Widget get pokemonImage {
 		var imageAvatar = new Hero(
-			tag: pokemon,
+			tag: pokemon.name + "_AV",
 			child: new Container(
 				width: 160.0,
 				height: 160.0,
@@ -78,7 +78,7 @@ class PokemonCardState extends State<PokemonCard> {
 		);
 
 		var placeholder = new Hero(
-			tag: pokemon,
+			tag: pokemon.name + "_PH",
 			child: new Container(
 				width: 160.0,
 				height: 160.0,
@@ -103,18 +103,13 @@ class PokemonCardState extends State<PokemonCard> {
 	}
 
 	void showPokemonDetail() {
-		Navigator.pushNamed<MaterialPageRoute>(context, "/route", 
-		
-			 
-		 
+		Navigator.of(context).push(new MaterialPageRoute(
+			builder: (context) 
+				{
+					return new PokemonDetail(widget.pokemon);
+				}
+			)  
 		);
-		// Navigator.of(context).push(new MaterialPageRoute(
-		// 	builder: (context) 
-		// 		{
-		// 			return new PokemonDetail(widget.pokemon);
-		// 		}
-		// 	)  
-		// );
 	}
 
 	@override

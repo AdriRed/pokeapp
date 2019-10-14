@@ -26,41 +26,48 @@ enum PokemonType {
   Shadow
 }
 
-
 class Pokemon {
-  final List<String> types;
-  final String name;
-  final String description;
-  final String region;
-  String imageUrl;
+  List<PokemonType> types;
+  String name;
+  String region;
+  String _imageUrl;
 
-  Pokemon(this.name, this.description, this.region, this.types);
+  Pokemon(String name, String region, List<PokemonType> types) {
+    this.name = name;
+    this.region = region;
+    this.types = types;
+  }
 
-  Future getImageUrl() async {
-    if (imageUrl != null) return;
+  String getImageUrl() {
+    return _imageUrl;
+  }
+
+  Future setImageUrl() async {
+    if (_imageUrl != null) return;
 
     HttpClient http = new HttpClient();
     try {
-      var uri = new Uri.http('pokeapi.co', '/api/v2/pokemon/' + name.toLowerCase());
+      var uri =
+          new Uri.http('pokeapi.co', '/api/v2/pokemon/' + name.toLowerCase());
       var request = await http.getUrl(uri);
       var response = await request.close();
-      
+
       var responseBody = await response.transform(utf8.decoder).join();
       var decoded = json.decode(responseBody);
-      
+
       var url = decoded["sprites"]["front_default"];
       log(url);
-      imageUrl = url;
+      _imageUrl = url;
     } catch (exception) {
       var uri = new Uri.http('pokeapi.co', '/api/v2/item/poke-ball');
       var request = await http.getUrl(uri);
       var response = await request.close();
-      
+
       var responseBody = await response.transform(utf8.decoder).join();
       var decoded = json.decode(responseBody);
 
       var url = decoded["sprites"]["default"];
-      imageUrl = url;
+      _imageUrl = url;
     }
   }
 }

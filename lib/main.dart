@@ -28,17 +28,14 @@ class PokemonHomePage extends StatefulWidget {
 
 class _PokemonHomePageState extends State<PokemonHomePage> {
   var initialPokemon = <Pokemon>[]
-    ..add(new Pokemon("Pikachu", "Rayos", "Kanto", <String>["Electric", "Psyque"]))
-    ..add(new Pokemon("Rayquaza", "Rayos", "Kanto", <String>["Electric"]))
-    ..add(new Pokemon("Arceus", "Rayos", "Kanto", <String>["Electric"]))
-    ..add(new Pokemon("Torterra", "Rayos", "Kanto", <String>["Electric"]))
-    ..add(new Pokemon("Pikachu4", "Rayos", "Kanto", <String>["Electric"]))
-    ..add(new Pokemon("Pikachu4", "Rayos", "Kanto", <String>["Electric"]))
-    ..add(new Pokemon("Pikachu4", "Rayos", "Kanto", <String>["Electric"]))
-    ..add(new Pokemon("Pikachu4", "Rayos", "Kanto", <String>["Electric"]))
-    ..add(new Pokemon("Pikachu4", "Rayos", "Kanto", <String>["Electric"]))
-    ..add(new Pokemon("Pikachu4", "Rayos", "Kanto", <String>["Electric"]))
-    ..add(new Pokemon("Pikachu4", "Rayos", "Kanto", <String>["Electric"]));
+    ..add(new Pokemon("Pikachu", "Kanto", <PokemonType>[PokemonType.Electric]))
+    ..add(new Pokemon("Rayquaza", "Kanto", <PokemonType>[PokemonType.Normal]))
+    ..add(new Pokemon("Arceus", "Kanto", <PokemonType>[PokemonType.Normal]))
+    ..add(new Pokemon("Torterra", "Kanto", <PokemonType>[PokemonType.Normal]))
+    ..add(new Pokemon("Ditto", "Kanto", <PokemonType>[PokemonType.Normal]))
+    ..add(new Pokemon("Chimchar", "Kanto", <PokemonType>[PokemonType.Normal]))
+    ..add(new Pokemon("Treeko", "Kanto", <PokemonType>[PokemonType.Normal]))
+    ..add(new Pokemon("Don Patricio", "Kanto", <PokemonType>[PokemonType.Normal]));
   
   @override
   Widget build(BuildContext context) {  
