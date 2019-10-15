@@ -30,13 +30,17 @@ class Pokemon {
   List<PokemonType> types;
   String name;
   String region;
+  String description;
   String _imageUrl;
 
-  Pokemon(String name, String region, List<PokemonType> types) {
+  Pokemon(String name, String region, String description, List<PokemonType> types) {
     this.name = name;
+    this.description = description;
     this.region = region;
     this.types = types;
   }
+
+  Pokemon.noDescription(String name, String region, List<PokemonType> types) : this(name, region, "none", types);
 
   String getImageUrl() {
     return _imageUrl;

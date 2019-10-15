@@ -12,6 +12,7 @@ class PokemonDetail extends StatefulWidget {
 
 class _PokemonDetailPageState extends State<PokemonDetail> {
   var typeColors = <Color>[
+
   ];
 
   double pokemonAvatarSize = 250;
@@ -76,10 +77,9 @@ class _PokemonDetailPageState extends State<PokemonDetail> {
     List<Widget> types = new List();
     for (var type in widget.pokemon.types) {
       types.add(new Card(
-        
         child: new Padding(
-          padding: EdgeInsets.all(5),
-          child:new Text(type.toString().toUpperCase(), style: new TextStyle(color: Colors.white, fontSize: 15),),
+          padding: EdgeInsets.all(8),
+          child:new Text(type.toString().toUpperCase().substring(type.toString().indexOf(".")+1), style: new TextStyle(color: Colors.white, fontSize: 15),),
         )
       ));
     }
@@ -90,17 +90,24 @@ class _PokemonDetailPageState extends State<PokemonDetail> {
     return new Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        new FittedBox(
-          fit: BoxFit.contain,
-          child: new Container(
-              alignment: Alignment.center,
-              color: Colors.blue,
-              child: new Text(
-                pokemon.name,
-                style: TextStyle(fontSize: 30, color: Colors.black),
-                textAlign: TextAlign.center,
-              )),
-        ),
+        
+        new Container(
+          width: 200,
+          height: 100,
+            alignment: Alignment.center,
+            child: new Card(
+              color: Color.fromARGB(255, 190, 190, 190),
+              child: new Padding(
+                padding: EdgeInsets.all(8),
+                child: new Text(
+                  pokemon.name,
+                  style: TextStyle(fontSize: 30, color: Colors.black),
+                  textAlign: TextAlign.center,
+                )
+              ),
+            )
+          ),
+        
         new Column(
           children: _types,
         )
@@ -108,7 +115,22 @@ class _PokemonDetailPageState extends State<PokemonDetail> {
     );
   }
 
-  Row get _secondRow {}
+  Widget get _description {
+    TextStyle tst = new TextStyle(fontSize: 20, color: Colors.black);
+    return new Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        new Container(
+          alignment: Alignment.topLeft,
+            child: new Text("Description: ", style: tst)
+        ),
+        new Container(
+          alignment: Alignment.topLeft,
+          child: new Text(widget.pokemon.description, style: tst)
+        )
+      ]
+    );
+  }
 
   List<Widget> get pokemonData {
     List<Widget> data = new List();
@@ -118,13 +140,25 @@ class _PokemonDetailPageState extends State<PokemonDetail> {
 
     data.add(new Container(
         width: 400,
-        height: 200,
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: new Card(
           color: Color.fromARGB(255, 200, 200, 200),
           child: new Column(
             children: <Widget>[
               _firstRow,
+              new Container(
+                child: new Card(
+                  color: Color.fromARGB(255, 190, 190, 190),
+                  child: new Padding(
+                    padding: EdgeInsets.all(5),
+                    child: new Text(
+                      "Region:   " + widget.pokemon.region, 
+                      style:TextStyle(fontSize: 20, color: Colors.black)
+                    )
+                  )
+                ),
+              ),
+              _description
             ],
           ),
         )));

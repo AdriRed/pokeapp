@@ -28,14 +28,14 @@ class PokemonHomePage extends StatefulWidget {
 
 class _PokemonHomePageState extends State<PokemonHomePage> {
   var initialPokemon = <Pokemon>[]
-    ..add(new Pokemon("Pikachu", "Kanto", <PokemonType>[PokemonType.Electric]))
-    ..add(new Pokemon("Rayquaza", "Kanto", <PokemonType>[PokemonType.Normal]))
-    ..add(new Pokemon("Arceus", "Kanto", <PokemonType>[PokemonType.Normal]))
-    ..add(new Pokemon("Torterra", "Kanto", <PokemonType>[PokemonType.Normal]))
-    ..add(new Pokemon("Ditto", "Kanto", <PokemonType>[PokemonType.Normal]))
-    ..add(new Pokemon("Chimchar", "Kanto", <PokemonType>[PokemonType.Normal]))
-    ..add(new Pokemon("Treeko", "Kanto", <PokemonType>[PokemonType.Normal]))
-    ..add(new Pokemon("Don Patricio", "Kanto", <PokemonType>[PokemonType.Normal]));
+    ..add(new Pokemon.noDescription("Pikachu", "Kanto", <PokemonType>[PokemonType.Electric]))
+    ..add(new Pokemon.noDescription("Rayquaza", "Kanto", <PokemonType>[PokemonType.Normal, PokemonType.Bug]))
+    ..add(new Pokemon.noDescription("Arceus", "Kanto", <PokemonType>[PokemonType.Normal]))
+    ..add(new Pokemon.noDescription("Torterra", "Kanto", <PokemonType>[PokemonType.Normal]))
+    ..add(new Pokemon.noDescription("Ditto", "Kanto", <PokemonType>[PokemonType.Normal]))
+    ..add(new Pokemon.noDescription("Chimchar", "Kanto", <PokemonType>[PokemonType.Normal]))
+    ..add(new Pokemon.noDescription("Treeko", "Kanto", <PokemonType>[PokemonType.Normal]))
+    ..add(new Pokemon.noDescription("Don Patricio", "Kanto", <PokemonType>[PokemonType.Normal]));
   
   @override
   Widget build(BuildContext context) {  
