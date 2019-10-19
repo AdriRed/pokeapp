@@ -11,9 +11,7 @@ class PokemonDetail extends StatefulWidget {
 }
 
 class _PokemonDetailPageState extends State<PokemonDetail> {
-  var typeColors = <Color>[
-
-  ];
+  var typeColors = <Color>[];
 
   double pokemonAvatarSize = 250;
   String renderUrl;
@@ -76,59 +74,87 @@ class _PokemonDetailPageState extends State<PokemonDetail> {
   List<Widget> get _types {
     List<Widget> types = new List();
     for (var type in widget.pokemon.types) {
+      String strtype = type.toString().toUpperCase();
       types.add(new Card(
         child: new Padding(
           padding: EdgeInsets.all(8),
-          child:new Text(type.toString().toUpperCase().substring(type.toString().indexOf(".")+1), style: new TextStyle(color: Colors.white, fontSize: 15),),
-        )
-      ));
+          child: new Text(
+            strtype.contains(".") ? strtype.substring(strtype.indexOf(".") +1) : strtype, 
+            style: new TextStyle(color: Colors.white, fontSize: 15),
+          ),
+      )));
     }
     return types;
   }
 
-  Row get _firstRow {
-    return new Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        
-        new Container(
-          width: 200,
-          height: 100,
-            alignment: Alignment.center,
-            child: new Card(
-              color: Color.fromARGB(255, 190, 190, 190),
-              child: new Padding(
-                padding: EdgeInsets.all(8),
-                child: new Text(
-                  pokemon.name,
-                  style: TextStyle(fontSize: 30, color: Colors.black),
-                  textAlign: TextAlign.center,
-                )
-              ),
-            )
-          ),
-        
-        new Column(
-          children: _types,
-        )
-      ],
+  Widget get _firstRow {
+    return new Container(
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+      child: new Center(child: new Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          _name,
+          new Column(
+            children: _types,
+          )
+        ],
+      ),
+      )
+      
     );
+  }
+
+  Widget get _name {
+    return new Container(
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+      width: 155,
+      alignment: Alignment.center,
+      child: new Card(
+        color: Color.fromARGB(255, 190, 190, 190),
+        child: new Padding(
+            padding: EdgeInsets.all(8),
+            child: new FittedBox(
+              fit: BoxFit.contain,
+              child: new Text(
+                pokemon.name,
+                style: TextStyle(fontSize: 30, color: Colors.black),
+                textAlign: TextAlign.center,
+              )
+              ),
+        )));
   }
 
   Widget get _description {
     TextStyle tst = new TextStyle(fontSize: 20, color: Colors.black);
-    return new Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        new Container(
-          alignment: Alignment.topLeft,
-            child: new Text("Description: ", style: tst)
-        ),
-        new Container(
-          alignment: Alignment.topLeft,
-          child: new Text(widget.pokemon.description, style: tst)
-        )
-      ]
+    return new Container(
+        margin: EdgeInsets.symmetric(horizontal: 40, vertical: 8),
+        child: new Card(
+            color: Color.fromARGB(255, 190, 190, 190),
+            margin: EdgeInsets.all(8),
+            child: new Container(
+              padding: EdgeInsets.all(8),
+              child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    new Container(
+                        alignment: Alignment.topLeft,
+                        child: new Text("Description: ", style: tst)),
+                    new Container(
+                        alignment: Alignment.topLeft,
+                        child: new Text(widget.pokemon.description, style: tst))
+                  ]),
+            )));
+  }
+
+  Widget get _region {
+    return new Container(
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+      child: new Card(
+          color: Color.fromARGB(255, 190, 190, 190),
+          child: new Padding(
+              padding: EdgeInsets.all(5),
+              child: new Text("Region:   " + widget.pokemon.region,
+                  style: TextStyle(fontSize: 20, color: Colors.black)))),
     );
   }
 
@@ -143,27 +169,24 @@ class _PokemonDetailPageState extends State<PokemonDetail> {
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: new Card(
           color: Color.fromARGB(255, 200, 200, 200),
-          child: new Column(
-            children: <Widget>[
-              _firstRow,
-              new Container(
-                child: new Card(
-                  color: Color.fromARGB(255, 190, 190, 190),
-                  child: new Padding(
-                    padding: EdgeInsets.all(5),
-                    child: new Text(
-                      "Region:   " + widget.pokemon.region, 
-                      style:TextStyle(fontSize: 20, color: Colors.black)
-                    )
-                  )
-                ),
-              ),
-              _description
-            ],
+          child: new Container(
+            alignment: Alignment.center,
+            child: new Column(
+              children: _textData,
+            )
           ),
         )));
-    //data.add(new Text(widget.pokemon.name, style: TextStyle(fontSize: 32, color: Colors.black)));
     return data;
+  }
+
+  List<Widget> get _textData {
+    List<Widget> textData = new List();
+
+    textData.add(_firstRow);
+    textData.add(_region);
+    if (pokemon.description.length > 0) textData.add(_description);
+
+    return textData;
   }
 
   Widget get pokemonDetails {

@@ -33,14 +33,16 @@ class Pokemon {
   String description;
   String _imageUrl;
 
-  Pokemon(String name, String region, String description, List<PokemonType> types) {
+  Pokemon(
+      String name, String region, String description, List<PokemonType> types) {
     this.name = name;
     this.description = description;
     this.region = region;
     this.types = types;
   }
 
-  Pokemon.noDescription(String name, String region, List<PokemonType> types) : this(name, region, "none", types);
+  Pokemon.noDescription(String name, String region, List<PokemonType> types)
+      : this(name, region, "", types);
 
   String getImageUrl() {
     return _imageUrl;
@@ -63,15 +65,6 @@ class Pokemon {
       log(url);
       _imageUrl = url;
     } catch (exception) {
-      var uri = new Uri.http('pokeapi.co', '/api/v2/item/poke-ball');
-      var request = await http.getUrl(uri);
-      var response = await request.close();
-
-      var responseBody = await response.transform(utf8.decoder).join();
-      var decoded = json.decode(responseBody);
-
-      var url = decoded["sprites"]["default"];
-      _imageUrl = url;
     }
   }
 }
