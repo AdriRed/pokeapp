@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:we_rate_dogs/dog_list.dart';
-import 'package:we_rate_dogs/dog_model.dart';
-import 'package:we_rate_dogs/new_dog_form.dart';
+import 'dog_list.dart';
+import 'dog_model.dart';
+import 'new_dog_form.dart';
 
 void main() {
   runApp(new MyApp());

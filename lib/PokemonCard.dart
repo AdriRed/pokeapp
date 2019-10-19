@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:we_rate_dogs/Pokemon.dart';
+import 'Pokemon.dart';
 import 'package:flutter/material.dart';
-import 'package:we_rate_dogs/PokemonDetail.dart';
+import 'PokemonDetail.dart';
 
 class PokemonCard extends StatefulWidget {
 	final Pokemon pokemon;

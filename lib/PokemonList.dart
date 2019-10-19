@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:we_rate_dogs/Pokemon.dart';
-import 'package:we_rate_dogs/PokemonCard.dart';
+import 'Pokemon.dart';
+import 'PokemonCard.dart';
 
 class PokemonList extends StatelessWidget {
   final List<Pokemon> pokemon;
