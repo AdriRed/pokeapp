@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokeapp/AddPokemon.dart';
+import 'AddPokemon.dart';
 import 'PokemonList.dart';
 import 'Pokemon.dart';
 import 'presentation/custom_icons_icons.dart';
