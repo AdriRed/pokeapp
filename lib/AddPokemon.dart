@@ -13,9 +13,8 @@ class _AddPokemonFormPageState extends State<AddPokemonFormPage> {
   TextEditingController regionController = new TextEditingController();
   TextEditingController descriptionController = new TextEditingController();
 
-  void _addPokemon(BuildContext context) {
-    if (nameController.text.isEmpty) {
-      
+  void _addPokemon(context) {
+    if (nameController.text.isEmpty || selectedType1 == null) {
       Scaffold.of(context).showSnackBar(
         new SnackBar(
           backgroundColor: Colors.redAccent,
@@ -23,8 +22,11 @@ class _AddPokemonFormPageState extends State<AddPokemonFormPage> {
         ),
       );
     } else {
-      Pokemon newPoke = new Pokemon(nameController.text.trim(),
-          regionController.text.trim(), descriptionController.text.trim(), <PokemonType>[PokemonType.Normal]);
+      Pokemon newPoke = new Pokemon(
+          nameController.text.trim(),
+          regionController.text.trim(),
+          descriptionController.text.trim(),
+          <PokemonType>[selectedType1]);
       Navigator.of(context).pop(newPoke);
     }
 
@@ -45,6 +47,38 @@ class _AddPokemonFormPageState extends State<AddPokemonFormPage> {
         onEditingComplete: () => print("COMPLETE"),
         onChanged: (txt) => print("CHANGED => " + txt),
       ),
+    );
+  }
+
+  PokemonType selectedType1;
+
+  List<DropdownMenuItem<PokemonType>> get _items {
+    return PokemonType.values
+        .map((x) =>
+            new DropdownMenuItem(
+              value: x, 
+              child: new Text(Pokemon.typeToString(x),
+              ))
+            )
+        .toList();
+  }
+
+  Widget get _pokemonType {
+    return new Container(
+        margin: EdgeInsets.all(10),
+        child: new Card(
+            color: Color.fromARGB(255, 190, 190, 190),
+            child: new Container(
+              padding: EdgeInsets.all(8),
+              child: new DropdownButton<PokemonType>(
+              value: selectedType1,
+              onChanged: (newValue) => setState(() => selectedType1 = newValue),
+              items: _items,
+              hint: Text("Pokemon Type", style: new TextStyle(color: Colors.black)),
+              style: new TextStyle(color: Colors.black),
+            )
+          )
+        )
     );
   }
 
@@ -84,6 +118,7 @@ class _AddPokemonFormPageState extends State<AddPokemonFormPage> {
     form.add(_pokemonName);
     form.add(_pokemomRegion);
     form.add(_pokemonDescription);
+    form.add(_pokemonType);
     return form;
   }
 

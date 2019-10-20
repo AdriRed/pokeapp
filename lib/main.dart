@@ -82,12 +82,12 @@ class _PokemonHomePageState extends State<PokemonHomePage> {
       if (!pokemonlist.any((pk) => pk.name == newPoke.name))
         pokemonlist.add(newPoke);
       else {
-        Scaffold.of(context).showSnackBar(
-        new SnackBar(
-          backgroundColor: Colors.redAccent,
-          content: new Text(newPoke.name + " already exists!"),
-        ),
-      );
+      //   Scaffold.of(context).showSnackBar(
+      //   new SnackBar(
+      //     backgroundColor: Colors.redAccent,
+      //     content: new Text(newPoke.name + " already exists!"),
+      //   ),
+      // );
       }
   }
 }

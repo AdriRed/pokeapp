@@ -11,7 +11,28 @@ class PokemonDetail extends StatefulWidget {
 }
 
 class _PokemonDetailPageState extends State<PokemonDetail> {
-  var typeColors = <Color>[];
+  var typeColors = <Color>[
+    new Color(0xFFa8a878),// Normal,
+    new Color(0xFFc03028),// Fighting,
+    new Color(0xFFa890f0),// Flying,
+    new Color(0xFFa040a0),// Poison,
+    new Color(0xFFe0c068),// Ground,
+    new Color(0xFFb8a038),// Rock,
+    new Color(0xFFa8b820),// Bug,
+    new Color(0xFF705898),// Ghost,
+    new Color(0xFFb8b8d0),// Steel,
+    new Color(0xFFf08030),// Fire,
+    new Color(0xFF6890f0),// Water,
+    new Color(0xFF78c850),// Grass,
+    new Color(0xFFf8d030),// Electric,
+    new Color(0xFFf85888),// Psychic,
+    new Color(0xFF98d8d8),// Ice,
+    new Color(0xFF7038f8),// Dragon,
+    new Color(0xFF705848),// Dark,
+    new Color(0xFFf0b6bc),// Fairy,
+    new Color(0xFF6aa596),// Unknown,
+    new Color(0xFF705898)// Shadow
+  ];
 
   double pokemonAvatarSize = 250;
   String renderUrl;
@@ -74,12 +95,12 @@ class _PokemonDetailPageState extends State<PokemonDetail> {
   List<Widget> get _types {
     List<Widget> types = new List();
     for (var type in widget.pokemon.types) {
-      String strtype = type.toString().toUpperCase();
       types.add(new Card(
+        color: typeColors[PokemonType.values.indexOf(type)],
         child: new Padding(
           padding: EdgeInsets.all(8),
           child: new Text(
-            strtype.contains(".") ? strtype.substring(strtype.indexOf(".") +1) : strtype, 
+            Pokemon.typeToString(type).toUpperCase(), 
             style: new TextStyle(color: Colors.white, fontSize: 15),
           ),
       )));

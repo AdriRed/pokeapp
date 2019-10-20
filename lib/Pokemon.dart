@@ -28,14 +28,19 @@ enum PokemonType {
 
 class Pokemon {
   List<PokemonType> types;
-  String name;
+  String _name;
   String region;
   String description;
   String _imageUrl;
 
+  String get name {
+    return _name.substring(0, 1).toUpperCase() +
+        _name.substring(1).toLowerCase();
+  }
+
   Pokemon(
       String name, String region, String description, List<PokemonType> types) {
-    this.name = name;
+    this._name = name.toLowerCase();
     this.description = description;
     this.region = region;
     this.types = types;
@@ -64,7 +69,13 @@ class Pokemon {
       var url = decoded["sprites"]["front_default"];
       log(url);
       _imageUrl = url;
-    } catch (exception) {
-    }
+    } catch (exception) {}
+  }
+
+  static String typeToString(PokemonType type) {
+    String strtype = type.toString();
+    return strtype.contains(".")
+        ? strtype.substring(strtype.indexOf(".") + 1)
+        : strtype;
   }
 }

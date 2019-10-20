@@ -79,7 +79,7 @@ class PokemonCardState extends State<PokemonCard> {
 		);
 
 		var placeholder = new Hero(
-			tag: pokemon.name + "_AV_" + TimeOfDay.now().toString(),
+			tag: pokemon.name + "_PH_" + TimeOfDay.now().toString(),
 			child: new Container(
 				width: 160.0,
 				height: 160.0,
