@@ -51,7 +51,7 @@ class PokemonCardState extends State<PokemonCard> {
 							new Padding(
 								child: new Text(
 									widget.pokemon.name, 
-									style: Theme.of(context).textTheme.title,
+									style: TextStyle(color: Colors.white, fontSize: 20),
 								),
 								padding: EdgeInsets.fromLTRB(10, 0, 0, 10)
 							),

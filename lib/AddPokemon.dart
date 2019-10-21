@@ -22,11 +22,15 @@ class _AddPokemonFormPageState extends State<AddPokemonFormPage> {
         ),
       );
     } else {
+      List<PokemonType> types = new List();
+      types.add(selectedType1);
+      if (selectedType2 != null) types.add(selectedType2);
+
       Pokemon newPoke = new Pokemon(
           nameController.text.trim(),
           regionController.text.trim(),
           descriptionController.text.trim(),
-          <PokemonType>[selectedType1]);
+          types);
       Navigator.of(context).pop(newPoke);
     }
 
@@ -51,19 +55,37 @@ class _AddPokemonFormPageState extends State<AddPokemonFormPage> {
   }
 
   PokemonType selectedType1;
+  PokemonType selectedType2;
 
   List<DropdownMenuItem<PokemonType>> get _items {
     return PokemonType.values
         .map((x) =>
             new DropdownMenuItem(
               value: x, 
-              child: new Text(Pokemon.typeToString(x),
-              ))
+              child: new Text(Pokemon.typeToString(x))
+              )
             )
         .toList();
   }
 
-  Widget get _pokemonType {
+  Widget get _types {
+    return new Container(
+        margin: EdgeInsets.all(10),
+        child: new Card(
+          color: Color.fromARGB(255, 190, 190, 190),
+          child: new Container(
+            child: new Column(
+              children: <Widget>[
+                _pokemonType1,
+                _pokemonType2
+              ],
+            )
+          )
+        )
+    );
+  }
+
+  Widget get _pokemonType1 {
     return new Container(
         margin: EdgeInsets.all(10),
         child: new Card(
@@ -71,11 +93,34 @@ class _AddPokemonFormPageState extends State<AddPokemonFormPage> {
             child: new Container(
               padding: EdgeInsets.all(8),
               child: new DropdownButton<PokemonType>(
-              value: selectedType1,
-              onChanged: (newValue) => setState(() => selectedType1 = newValue),
-              items: _items,
-              hint: Text("Pokemon Type", style: new TextStyle(color: Colors.black)),
-              style: new TextStyle(color: Colors.black),
+                value: selectedType1,
+                onChanged: (newValue) => setState(() => selectedType1 = newValue),
+                items: _items,
+                hint: Text("1 - Pokemon Type", style: new TextStyle(color: Colors.black)),
+                style: new TextStyle(color: Colors.black),
+              )
+          )
+        )
+    );
+  }
+
+  Widget get _pokemonType2 {
+    var items = _items;
+    items.add(new DropdownMenuItem<PokemonType>(
+      value: null,
+      child: new Text(" -------- ")
+    ));
+    return new Container(
+        margin: EdgeInsets.all(10),
+        child: new Card(
+            color: Color.fromARGB(255, 190, 190, 190),
+            child: new Container(
+              padding: EdgeInsets.all(8),
+              child: new DropdownButton<PokemonType>(
+                onChanged: (newValue) => setState(() => selectedType2 = newValue),
+                items: items,
+                hint: Text("2 - Pokemon Type", style: new TextStyle(color: Colors.black)),
+                style: new TextStyle(color: Colors.black),
             )
           )
         )
@@ -118,7 +163,7 @@ class _AddPokemonFormPageState extends State<AddPokemonFormPage> {
     form.add(_pokemonName);
     form.add(_pokemomRegion);
     form.add(_pokemonDescription);
-    form.add(_pokemonType);
+    form.add(_types);
     return form;
   }
 
@@ -139,7 +184,7 @@ class _AddPokemonFormPageState extends State<AddPokemonFormPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.check),
+        child: Icon(Icons.check, color: Colors.black),
         onPressed: () => _addPokemon(context),
         backgroundColor: Colors.white,
       ),
